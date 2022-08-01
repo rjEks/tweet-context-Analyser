@@ -36,7 +36,7 @@ def create_url(keyword, start_date, end_date, max_results = 10):
                     'next_token': {}}
     return (search_url, query_params)
 
-import requests
+
 def connect_to_endpoint(url, headers, params, next_token = None):
     
     params['next_token'] = next_token 
