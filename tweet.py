@@ -2,12 +2,19 @@
 import json
 import requests
 import tweepy  as tw 
-
+import os
 
 def set_credentials(bearer_token,consumer_key,consumer_secret,access_token,
             access_token_secret):
-#get data from vault
-    return True
+
+    bearer_token=os.environ['BEARER_TOKEN']
+    consumer_key=os.environ['CONSUMER_KEY']
+    consumer_secret = os.environ['CONSUMER_SECRET']
+    access_token = os.environ['ACCESS_TOKEN']
+    access_token_secret = os.environ['ACCESS_TOKEN_SECRET']
+    
+    return bearer_token,consumer_key,consumer_secret,access_token,access_token_secret
+    
 
 def getClient(bearer_token,consumer_key,consumer_secret,access_token,
             access_token_secret):    
