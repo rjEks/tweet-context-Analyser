@@ -3,6 +3,7 @@ import json
 import requests
 import tweepy  as tw 
 import os
+import re
 
 def set_credentials(bearer_token,consumer_key,consumer_secret,access_token,
             access_token_secret):
@@ -37,4 +38,11 @@ def searchTwitter(client, start_time, end_time, max_results=10, query="#bolsonar
                                      expansions='author_id'
                                      )
     tweets_dict = [dict(tweets_no_format) for tweets_no_format in tweets.data]
+    return tweets_dict
+
+def cleanTweet(tweets_dict):
+    
+    for tweets in tweets_dict:
+        tweets["text"] = re.sub(r"(@[A-Za-z0–9_]+)|[^\w\s]|#|http\S+", "", tweets["text"])
+    
     return tweets_dict
