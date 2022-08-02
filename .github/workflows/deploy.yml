@@ -2,7 +2,7 @@ name: MLOps Lambda Container Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [ develop ]
 
 jobs:
   build:
@@ -26,6 +26,14 @@ jobs:
       - name: verify files on directory
         run: |
           ls -la
+      
+      - name: Send Lambda Code to S3
+        run: |
+            aws s3api put-object \ 
+            --bucket twitter-context-analyser \
+            --key lambda-code\
+            --region us-west-2 \
+            --body ./src.zip
 
 
 
