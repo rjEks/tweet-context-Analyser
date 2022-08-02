@@ -2,7 +2,7 @@ name: MLOps Lambda Container Pipeline
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ main ]
 
 jobs:
   build:
