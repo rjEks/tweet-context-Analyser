@@ -1,0 +1,81 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Event Bridge and Lmabda Container
+
+Resources:
+    Function:
+      Type: AWS::Lambda::Function
+      Properties:
+        Handler: app.handler
+        Role: !GetAtt Role.Arn
+        Code:
+          S3Bucket: twitter-context-analyser
+          S3Key: lambda-code/src.zip
+        Runtime: python3.8
+        Timeout: 90
+
+    Role:
+      Type: AWS::IAM::Role
+      Properties:
+        RoleName: analyser-lambda-role
+        AssumeRolePolicyDocument:
+          Version: 2012-10-17
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+              Action:
+                - 'sts:AssumeRole'
+        Path: /
+        Policies:
+          - PolicyName: discovery-lambda-policy
+            PolicyDocument:
+              Version: 2012-10-17
+              Statement:
+                - Effect: Allow
+                  Action: 
+                    - "cloudwatch:*"
+                    - "ec2:DescribeSecurityGroups"
+                    - "ec2:DescribeSubnets"
+                    - "ec2:DescribeVpcs"
+                    - "events:*"
+                    - "iam:GetPolicy"
+                    - "iam:GetPolicyVersion"
+                    - "iam:GetRole"
+                    - "iam:GetRolePolicy"
+                    - "iam:ListAttachedRolePolicies"
+                    - "iam:ListRolePolicies"
+                    - "iam:ListRoles"
+                    - "iam:PassRole"
+                    - "kms:ListAliases"
+                    - "lambda:*"
+                    - "logs:*"
+                    - "tag:GetResources"
+                  Resource: '*'
+        MaxSessionDuration: 3600 
+
+#  ScheduledRule: 
+#    Type: AWS::Events::Rule
+#    Properties: 
+#      Description: "ScheduledRule"
+#      ScheduleExpression: "rate(10 minutes)"
+#      State: "ENABLED"
+#      Targets: 
+#        - 
+#          Arn: 
+#            Fn::GetAtt: 
+#              - "LambdaFunction"
+#              - "Arn"
+#          Id: "TargetFunctionV1"
+#          
+#  PermissionForEventsToInvokeLambda: 
+#    Type: AWS::Lambda::Permission
+#    Properties: 
+#      FunctionName: !Ref "LambdaFunction"
+#      Action: "lambda:InvokeFunction"
+#      Principal: "events.amazonaws.com"
+#      SourceArn: 
+#        Fn::GetAtt: 
+#          - "ScheduledRule"
+#          - "Arn"

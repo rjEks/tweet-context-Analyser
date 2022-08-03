@@ -30,7 +30,14 @@ jobs:
       - name: Send Lambda Code to S3
         run: |
           aws s3api put-object --bucket twitter-context-analyser --key lambda-code/src.zip --region us-west-2 --body ./src.zip
-
+      
+      - name: Create Lambda Function
+        run: | 
+          aws cloudformation deploy \
+            --stack-name tweet-context-analyser \
+            --no-fail-on-empty-changeset \
+            --template-file ./IaC/lambda.yml \
+            --capabilities CAPABILITY_NAMED_IAM
 
 
       
