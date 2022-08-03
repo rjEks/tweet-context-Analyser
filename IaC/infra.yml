@@ -79,6 +79,12 @@ Resources:
           - 
             AttributeName: "Sentiment"
             KeyType: "RANGE"
+          - 
+            AttributeName: "Text"
+            KeyType: "RANGE"
+          - 
+            AttributeName: "AuthorId"
+            KeyType: "RANGE"
         ProvisionedThroughput: 
           ReadCapacityUnits: 5
           WriteCapacityUnits: 5        
