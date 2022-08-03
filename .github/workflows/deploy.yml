@@ -36,7 +36,7 @@ jobs:
           aws cloudformation deploy \
             --stack-name tweet-context-analyser \
             --no-fail-on-empty-changeset \
-            --template-file ./IaC/lambda.yml \
+            --template-file ./IaC/infra.yml \
             --capabilities CAPABILITY_NAMED_IAM
 
 
