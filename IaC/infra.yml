@@ -53,29 +53,29 @@ Resources:
                   - "tag:GetResources"
                 Resource: '*'
       MaxSessionDuration: 3600 
-  TwitterTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      TableName: Tweets
-      AttributeDefinitions:
-        - 
-          AttributeName: "Text"
-          AttributeType: "S"
-        - 
-          AttributeName: "Sentiment"
-          AttributeType: "S"
-        
-      KeySchema:
-        - 
-          AttributeName: "Sentiment"
-          KeyType: "HASH"
-        - 
-          AttributeName: "Text"
-          KeyType: "RANGE"
-      ProvisionedThroughput: 
-        ReadCapacityUnits: 2
-        WriteCapacityUnits: 2    
-        
+  #TwitterTable:
+  #  Type: AWS::DynamoDB::Table
+  #  Properties:
+  #    TableName: Tweets
+  #    AttributeDefinitions:
+  #      - 
+  #        AttributeName: "Text"
+  #        AttributeType: "S"
+  #      - 
+  #        AttributeName: "Sentiment"
+  #        AttributeType: "S"
+  #      
+  #    KeySchema:
+  #      - 
+  #        AttributeName: "Sentiment"
+  #        KeyType: "HASH"
+  #      - 
+  #        AttributeName: "Text"
+  #        KeyType: "RANGE"
+  #    ProvisionedThroughput: 
+  #      ReadCapacityUnits: 2
+  #      WriteCapacityUnits: 2    
+
   TwitterEventRule: 
     Type: AWS::Events::Rule
     Properties: 
