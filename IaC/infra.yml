@@ -66,25 +66,15 @@ Resources:
           - 
             AttributeName: "Sentiment"
             AttributeType: "S"
-          - 
-            AttributeName: "CreatedAt"
-            AttributeType: "S"
-          - 
-            AttributeName: "AuthorId"
-            AttributeType: "S"
+          
         KeySchema:
           - 
-            AttributeName: "CreatedAt"
-            KeyType: "HASH"
-          - 
             AttributeName: "Sentiment"
-            KeyType: "RANGE"
+            KeyType: "HASH"
           - 
             AttributeName: "Text"
             KeyType: "RANGE"
-          - 
-            AttributeName: "AuthorId"
-            KeyType: "RANGE"
+
         ProvisionedThroughput: 
           ReadCapacityUnits: 5
           WriteCapacityUnits: 5        
