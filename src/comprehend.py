@@ -6,9 +6,9 @@ def detectSentiment(client, Text, LanguageCode="pt"):
     
     sentiment = client.detect_sentiment(Text=Text, LanguageCode=LanguageCode)
     response_sentiment = sentiment['Sentiment']
-    response_scores = sentiment['SentimentScore']
     
-    return response_sentiment, response_scores
+    
+    return response_sentiment
 
 def detectEntities(client, Text, LanguageCode="pt"):
     
