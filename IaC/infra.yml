@@ -55,6 +55,36 @@ Resources:
                   Resource: '*'
         MaxSessionDuration: 3600 
 
+    TwitterTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Tweets
+        AttributeDefinitions:
+          - 
+            AttributeName: "Text"
+            AttributeType: "S"
+          - 
+            AttributeName: "Sentiment"
+            AttributeType: "S"
+          - 
+            AttributeName: "CreatedAt"
+            AttributeType: "S"
+          - 
+            AttributeName: "AuthorId"
+            AttributeType: "S"
+        KeySchema:
+          - 
+            AttributeName: "CreatedAt"
+            KeyType: "HASH"
+          - 
+            AttributeName: "Sentiment"
+            KeyType: "RANGE"
+        ProvisionedThroughput: 
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5        
+        
+            
+
 #  ScheduledRule: 
 #    Type: AWS::Events::Rule
 #    Properties: 
