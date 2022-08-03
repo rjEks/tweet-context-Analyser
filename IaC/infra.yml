@@ -6,7 +6,7 @@ Resources:
     Function:
       Type: AWS::Lambda::Function
       Properties:
-        Handler: app.handler
+        Handler: src/app.handler
         Role: !GetAtt Role.Arn
         Code:
           S3Bucket: twitter-context-analyser
