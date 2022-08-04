@@ -15,10 +15,12 @@ client_comprehend = boto3.client('comprehend')
 def handler(event, context):
     
     ## Set twitter credentials
-    bearer_token,api_key,api_key_secret,access_token,access_token_secret = set_credentials(secrets)
+    bearer_token,api_key,api_key_secret,access_token,\
+    access_token_secret = set_credentials(secrets)
     
     ## getting client
-    client = getClient(bearer_token,api_key,api_key_secret,access_token,access_token_secret)
+    client = getClient(bearer_token,api_key,api_key_secret,access_token, \
+                       access_token_secret)
    
     
     ## Set common variables
@@ -30,8 +32,11 @@ def handler(event, context):
     query = "bolsonaro lang:pt"   
     
     ## search twitter 
-    tweet_dict = searchTwitter(client, start_time.isoformat(), end_time.isoformat(), max_results, query)
-    tweet_sentiment_analysis_dict = detectSentiment(client_comprehend,tweet_dict)
-    print(tweet_sentiment_analysis_dict)
+    tweet_dict = searchTwitter(client, start_time.isoformat(), \
+                               end_time.isoformat(), max_results, query)
+    
     ## using comprehend
+    tweet_sentiment_analysis_dict = detectSentiment(client_comprehend,tweet_dict,query)
+    print(tweet_sentiment_analysis_dict)
+    
     
