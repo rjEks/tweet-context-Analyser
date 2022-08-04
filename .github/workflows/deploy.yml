@@ -38,7 +38,7 @@ jobs:
      
       - name: Send Lambda Code to S3 and Layer Content
         env: 
-          release_id: ${{ format('<REPO NAME>-{0}-dev.zip', github.head_ref )}}
+          release_id: ${{ format('context-analyser-{0}-dev.zip', github.head_ref )}}
         run: |
           aws s3api put-object --bucket twitter-context-analyser --key $release_id/src.zip --region us-west-2 --body ./src.zip
           aws s3api put-object --bucket twitter-context-analyser --key lambda-layer/packages.zip --region us-west-2 --body ./packages.zip
