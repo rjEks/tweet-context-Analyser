@@ -51,7 +51,7 @@ jobs:
 
       - name: Update Lambda Function Code
         run: |
-          aws lambda update-function-code --function-name tweet-context-analyser-Function-ouqdl2QsP4Ho --s3-bucket twitter-context-analyser --s3-key lambda-code/src.zip
+          aws lambda update-function-code --function-name tweet-context-analyser-Function-fNouBu0iur8e --s3-bucket twitter-context-analyser --s3-key lambda-code/src.zip
 
 
 
