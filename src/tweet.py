@@ -5,14 +5,13 @@ import tweepy  as tw
 import os
 import re
 
-def set_credentials(bearer_token,consumer_key,consumer_secret,access_token,
-            access_token_secret):
+def set_credentials(secrets):
 
-    bearer_token=os.environ['BEARER_TOKEN']
-    consumer_key=os.environ['CONSUMER_KEY']
-    consumer_secret = os.environ['CONSUMER_SECRET']
-    access_token = os.environ['ACCESS_TOKEN']
-    access_token_secret = os.environ['ACCESS_TOKEN_SECRET']
+    bearer_token=secrets['BEARER_TOKEN']
+    consumer_key=secrets['CONSUMER_KEY']
+    consumer_secret = secrets['CONSUMER_SECRET']
+    access_token = secrets['ACCESS_TOKEN']
+    access_token_secret = secrets['ACCESS_TOKEN_SECRET']
     
     return bearer_token,consumer_key,consumer_secret,access_token,access_token_secret
     
