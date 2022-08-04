@@ -23,27 +23,23 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Zip it all up and upload to S3
+      - name: Zip lambda layer content
         run: |
           mkdir python
           pip install -r requirements.txt -t python             
           zip --quiet -r packages.zip python
           ls -la
 
-
       - name: Zip Source Code Directory
         uses: montudor/action-zip@v1
         with:
           args: zip -qq -r src.zip src
         
-      - name: verify files on directory
-        run: |
-          ls -la
-      
+     
       - name: Send Lambda Code to S3 and Layer Content
         run: |
           aws s3api put-object --bucket twitter-context-analyser --key lambda-code/src.zip --region us-west-2 --body ./src.zip
-          aws s3api put-object --bucket twitter-context-analyser --key lambda-layer/layer.zip --region us-west-2 --body ./layer.zip
+          aws s3api put-object --bucket twitter-context-analyser --key lambda-layer/layer.zip --region us-west-2 --body ./packages.zip
       
       - name: Create Lambda Function
         run: | 
