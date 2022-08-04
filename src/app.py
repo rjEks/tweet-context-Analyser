@@ -22,10 +22,10 @@ def handler(event, context):
     timedelta_days_between = timedelta(1)
     start_time = datetime.datetime.now(datetime.timezone.utc) - timedelta_days
     end_time = datetime.datetime.now(datetime.timezone.utc) - timedelta_days_between
-    max_results = 100
+    max_results = 20
     query = "bolsonaro lang:pt"
    
     
-    tweet_dict = searchTwitter(client, start_time.isoformat(), end_time.isoformat(), query)
+    tweet_dict = searchTwitter(client, start_time.isoformat(), end_time.isoformat(), max_results, query)
     print(tweet_dict)
     
