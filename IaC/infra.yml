@@ -55,6 +55,7 @@ Resources:
                   - "tag:GetResources"
                   - "s3:*"
                   - "secretsmanager:*"
+                  - "comprehend:*"
                 Resource: '*'
       MaxSessionDuration: 3600 
   #TwitterTable:
