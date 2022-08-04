@@ -53,6 +53,8 @@ Resources:
                   - "lambda:*"
                   - "logs:*"
                   - "tag:GetResources"
+                  - "s3:*"
+                  - "secretsmanager:*"
                 Resource: '*'
       MaxSessionDuration: 3600 
   #TwitterTable:
