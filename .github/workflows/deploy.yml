@@ -50,6 +50,7 @@ jobs:
             --no-fail-on-empty-changeset \
             --template-file ./IaC/infra.yml \
             --capabilities CAPABILITY_NAMED_IAM
+            
       - name: Update Lambda Function Code
         run: |
           aws lambda update-function-code --function-name tweet-context-analyser-Function-ouqdl2QsP4Ho --s3-bucket twitter-context-analyser --s3-key lambda-code/src.zip
