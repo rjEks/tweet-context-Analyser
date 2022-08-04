@@ -13,6 +13,8 @@ Resources:
         S3Key: lambda-code/src.zip
       Runtime: python3.8
       Timeout: 90
+      Layers:
+        - !Ref TweepyLayer
   Role:
     Type: AWS::IAM::Role
     Properties:
