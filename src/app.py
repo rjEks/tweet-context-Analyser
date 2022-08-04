@@ -1,26 +1,33 @@
 import os
 from secrets_manager import get_secret
-import tweepy
-from src.tweet import set_credentials
+from tweepy import *
+from tweet import set_credentials
 from tweet import *
 from datetime import time,  timedelta
+import datetime
 
 secrets = get_secret()
 
-def handler(event, context):
+def handler():
     
     ## Set twitter credentials
-    bearer_token,consumer_key,consumer_secret,access_token,access_token_secret = set_credentials(secrets)
+    bearer_token,api_key,api_key_secret,access_token,access_token_secret = set_credentials(secrets)
     
     ## getting client
-    client = getClient(bearer_token,consumer_key,consumer_secret,access_token,access_token_secret)
+    client = getClient(bearer_token,api_key,api_key_secret,access_token,access_token_secret)
+   
     
     ## Set common variables
-    timedelta = 5
-    start_time = datetime.datetime.utcnow() - timedelta
-    end_time = datetime.datetime.utcnow()
+    timedelta_days = timedelta(5)
+    timedelta_days_between = timedelta(1)
+    start_time = datetime.datetime.now(datetime.timezone.utc) - timedelta_days
+    end_time = datetime.datetime.now(datetime.timezone.utc) - timedelta_days_between
     max_results = 100
-    query = "#bolsonaro lang:pt"
+    query = "bolsonaro lang:pt"
+   
     
     tweet_dict = searchTwitter(client, start_time.isoformat(), end_time.isoformat(), query)
     print(tweet_dict)
+    
+if __name__ == "__main__":
+    handler()
