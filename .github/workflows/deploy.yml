@@ -18,6 +18,20 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
 
+      - name: Setup Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+
+      - name: Zip it all up and upload to S3
+        run: |
+          mkdir python
+          pip install -r requirements.txt -t python
+          pip install . -t  python         
+          zip --quiet -r packages.zip python
+          ls -la
+
+
       - name: Zip Source Code Directory
         uses: montudor/action-zip@v1
         with:
@@ -27,9 +41,10 @@ jobs:
         run: |
           ls -la
       
-      - name: Send Lambda Code to S3
+      - name: Send Lambda Code to S3 and Layer Content
         run: |
           aws s3api put-object --bucket twitter-context-analyser --key lambda-code/src.zip --region us-west-2 --body ./src.zip
+          aws s3api put-object --bucket twitter-context-analyser --key lambda-layer/layer.zip --region us-west-2 --body ./layer.zip
       
       - name: Create Lambda Function
         run: | 
