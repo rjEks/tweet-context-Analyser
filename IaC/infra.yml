@@ -101,14 +101,14 @@ Resources:
           - "TwitterEventRule"
           - "Arn"
 
-  #TweepyLayer:
-  #Type: AWS::Lambda::LayerVersion
-  #Properties:
-  #  CompatibleRuntimes:
-  #    - python3.8
-  #  Content:
-  #    S3Bucket: twitter-context-analyser
-  #    S3Key: lambda-layer/layer.zip
-  #  Description: tweepy Layer
-  #  LayerName: tweepy-layer
-  #  LicenseInfo: MIT
+  TweepyLayer:
+    Type: AWS::Lambda::LayerVersion
+    Properties:
+      CompatibleRuntimes:
+        - python3.8
+      Content:
+        S3Bucket: twitter-context-analyser
+        S3Key: lambda-layer/packages.zip
+      Description: tweepy Layer
+      LayerName: tweepy-layer
+      LicenseInfo: MIT
