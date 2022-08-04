@@ -2,10 +2,13 @@ import os
 import boto3
 
 
-def detectSentiment(client, Text, LanguageCode="pt"):
+def detectSentiment(client, tweet_dict, LanguageCode="pt"):
     
-    sentiment = client.detect_sentiment(Text=Text, LanguageCode=LanguageCode)
-    response_sentiment = sentiment['Sentiment']
+    for tweets in tweet_dict:    
+        sentiment = client.detect_sentiment(Text=tweets["text"], LanguageCode=LanguageCode)
+        tweets["sentiment"] = sentiment['Sentiment']
+    
+    return tweet_dict
     
     
     return response_sentiment
