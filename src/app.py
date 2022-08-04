@@ -1,14 +1,14 @@
 import os
-from secrets_manager import get_secret
+from src.secrets_manager import get_secret
 from tweepy import *
-from tweet import set_credentials
-from tweet import *
+from src.tweet import set_credentials
+from src.tweet import *
 from datetime import time,  timedelta
 import datetime
 
 secrets = get_secret()
 
-def handler():
+def handler(event, context):
     
     ## Set twitter credentials
     bearer_token,api_key,api_key_secret,access_token,access_token_secret = set_credentials(secrets)
@@ -29,5 +29,3 @@ def handler():
     tweet_dict = searchTwitter(client, start_time.isoformat(), end_time.isoformat(), query)
     print(tweet_dict)
     
-if __name__ == "__main__":
-    handler()
