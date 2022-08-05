@@ -58,6 +58,8 @@ Resources:
                   - "secretsmanager:*"
                   - "comprehend:*"
                   - "glue:*"
+                  - "ec2:CreateTags"
+                  - "ec2:DeleteTags"
                 Resource: '*'
       MaxSessionDuration: 3600 
   #TwitterTable:
