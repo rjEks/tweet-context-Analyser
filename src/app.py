@@ -3,11 +3,11 @@ from src.secrets_manager import get_secret
 from tweepy import *
 from src.tweet import set_credentials
 from src.tweet import *
-from datetime import time,  timedelta
+from datetime import timedelta, datetime, timezone
 import datetime
 from src.comprehend import *
 import boto3
-from s3 import * 
+from src.s3 import * 
 
 secrets = get_secret()
 
@@ -31,7 +31,7 @@ def handler(event, context):
     start_time = datetime.datetime.now(datetime.timezone.utc) - timedelta_days
     end_time = datetime.datetime.now(datetime.timezone.utc) - timedelta_days_between
     max_results = 20
-    query = "bolsonaro -is:retweet lang:pt"   
+    query = "bolsonaro -is:retweet lang:pt"
     
     ## search twitter 
     tweet_dict = searchTwitter(client, start_time.isoformat(), \
@@ -39,8 +39,7 @@ def handler(event, context):
     
     ## using comprehend
     tweet_sentiment_analysis_dict = detectSentiment(client_comprehend,tweet_dict,query)
-    print(tweet_sentiment_analysis_dict)
-    
+            
     ## Put in S3
     PutTweetS3(client_s3,tweet_sentiment_analysis_dict)
     
