@@ -38,9 +38,6 @@ Resources:
               - Effect: Allow
                 Action: 
                   - "cloudwatch:*"
-                  - "ec2:DescribeSecurityGroups"
-                  - "ec2:DescribeSubnets"
-                  - "ec2:DescribeVpcs"
                   - "events:*"
                   - "iam:GetPolicy"
                   - "iam:GetPolicyVersion"
@@ -58,8 +55,7 @@ Resources:
                   - "secretsmanager:*"
                   - "comprehend:*"
                   - "glue:*"
-                  - "ec2:CreateTags"
-                  - "ec2:DeleteTags"
+                  - "ec2:*"
                 Resource: '*'
       MaxSessionDuration: 3600 
   #TwitterTable:
