@@ -26,6 +26,7 @@ Resources:
             Principal:
               Service:
                 - lambda.amazonaws.com
+                - glue.amazonaws.com
             Action:
               - 'sts:AssumeRole'
       Path: /
@@ -56,6 +57,7 @@ Resources:
                   - "s3:*"
                   - "secretsmanager:*"
                   - "comprehend:*"
+                  - "glue:*"
                 Resource: '*'
       MaxSessionDuration: 3600 
   #TwitterTable:
