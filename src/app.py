@@ -29,14 +29,17 @@ def handler(event, context):
     start_time = datetime.datetime.now(datetime.timezone.utc) - timedelta_days
     end_time = datetime.datetime.now(datetime.timezone.utc) - timedelta_days_between
     max_results = 20
-    query = "bolsonaro lang:pt"   
+    query = "bolsonaro -is:retweet lang:pt"   
     
     ## search twitter 
     tweet_dict = searchTwitter(client, start_time.isoformat(), \
                                end_time.isoformat(), max_results, query)
     
+    tweet_dict_cleaned = cleanTweet(tweet_dict)
+    
     ## using comprehend
-    tweet_sentiment_analysis_dict = detectSentiment(client_comprehend,tweet_dict,query)
+    tweet_sentiment_analysis_dict = detectSentiment(client_comprehend, \
+                                                    tweet_dict_cleaned,query)
     print(tweet_sentiment_analysis_dict)
     
     
