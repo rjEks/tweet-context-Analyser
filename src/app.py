@@ -7,10 +7,12 @@ from datetime import time,  timedelta
 import datetime
 from src.comprehend import *
 import boto3
+from s3 import * 
 
 secrets = get_secret()
 
 client_comprehend = boto3.client('comprehend')
+client_s3 = boto3.client("s3")
 
 def handler(event, context):
     
@@ -35,11 +37,11 @@ def handler(event, context):
     tweet_dict = searchTwitter(client, start_time.isoformat(), \
                                end_time.isoformat(), max_results, query)
     
-    tweet_dict_cleaned = cleanTweet(tweet_dict)
-    
     ## using comprehend
-    tweet_sentiment_analysis_dict = detectSentiment(client_comprehend, \
-                                                    tweet_dict_cleaned,query)
+    tweet_sentiment_analysis_dict = detectSentiment(client_comprehend,tweet_dict,query)
     print(tweet_sentiment_analysis_dict)
+    
+    ## Put in S3
+    PutTweetS3(client_s3,tweet_sentiment_analysis_dict)
     
     
