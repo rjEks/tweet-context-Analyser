@@ -38,9 +38,13 @@ def handler(event, context):
                                end_time.isoformat(), max_results, query)
     
     ## using comprehend
-    tweet_sentiment_analysis_dict = detectSentiment(client_comprehend,tweet_dict,query)
-            
+    tweet_sentiment_analysis_dict = detectSentiment(client_comprehend,tweet_dict
+                                                    ,query)
+    
+    ## Clean Tweets
+    tweet_sentiment_cleaned_dict = cleanTweet(tweet_sentiment_analysis_dict)
+ 
     ## Put in S3
-    PutTweetS3(client_s3,tweet_sentiment_analysis_dict)
+    PutTweetS3(client_s3,tweet_sentiment_cleaned_dict)
     
     

@@ -45,6 +45,13 @@ def searchTwitter(client, start_time, end_time, max_results=10, query="bolsonaro
 def cleanTweet(tweets_dict):
     
     for tweets in tweets_dict:
-        tweets["text"] = re.sub(r"(@[A-Za-z0–9_]+)|[^\w\s]|#|http\S+", "", tweets["text"])
+        #remove mentions
+        tweets["text"] = re.sub("@[A-Za-z0-9_]+", "", tweets["text"])
+        #remove hastags
+        tweets["text"] = re.sub("#[A-Za-z0-9_]+", "", tweets["text"])
+        #remove http
+        tweets["text"] = re.sub(r"https\S+", "", tweets["text"])
+        #remove links
+        tweets["text"] = re.sub(r"www.\S+", "", tweets["text"])
     
     return tweets_dict

@@ -13,8 +13,6 @@ def detectSentiment(client, tweet_dict, arg_query,LanguageCode="pt"):
     return tweet_dict
     
     
-    return response_sentiment
-
 def detectEntities(client, Text, LanguageCode="pt"):
     
     entities = client.detect_entities(Text = Text, LanguageCode = LanguageCode)
