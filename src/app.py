@@ -31,7 +31,7 @@ def handler(event, context):
     timedelta_days_between = timedelta(1)
     start_time = datetime.datetime.now(datetime.timezone.utc) - timedelta_days
     end_time = datetime.datetime.now(datetime.timezone.utc) - timedelta_days_between
-    max_results = 100
+    max_results = 50
     query = "bolsonaro -is:retweet lang:pt"
     
     ## search twitter 
@@ -44,7 +44,8 @@ def handler(event, context):
     
     ## Clean Tweets
     tweet_sentiment_cleaned_dict = cleanTweet(tweet_sentiment_analysis_dict)
-    json_tweet_sentiment_cleaned_dict = json.dumps(tweet_sentiment_cleaned_dict, default=str)
+    json_tweet_sentiment_cleaned_dict = json.dumps(tweet_sentiment_cleaned_dict,
+                                                   default=str)
     
     #put in dynamo db
     tweet_file_reader = ast.literal_eval(json_tweet_sentiment_cleaned_dict)
