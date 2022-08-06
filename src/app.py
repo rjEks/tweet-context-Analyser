@@ -7,12 +7,14 @@ from datetime import timedelta, datetime, timezone
 import datetime
 from src.comprehend import *
 import boto3
-from src.s3 import * 
+from src.s3 import *
+import ast
 
 secrets = get_secret()
 
 client_comprehend = boto3.client('comprehend')
 client_s3 = boto3.client("s3")
+dynamodb_client = boto3.resource("dynamodb")
 
 def handler(event, context):
     
@@ -22,15 +24,14 @@ def handler(event, context):
     
     ## getting client
     client = getClient(bearer_token,api_key,api_key_secret,access_token, \
-                       access_token_secret)
-   
+                       access_token_secret)   
     
     ## Set common variables
     timedelta_days = timedelta(5)
     timedelta_days_between = timedelta(1)
     start_time = datetime.datetime.now(datetime.timezone.utc) - timedelta_days
     end_time = datetime.datetime.now(datetime.timezone.utc) - timedelta_days_between
-    max_results = 20
+    max_results = 100
     query = "bolsonaro -is:retweet lang:pt"
     
     ## search twitter 
@@ -43,8 +44,17 @@ def handler(event, context):
     
     ## Clean Tweets
     tweet_sentiment_cleaned_dict = cleanTweet(tweet_sentiment_analysis_dict)
- 
+    json_tweet_sentiment_cleaned_dict = json.dumps(tweet_sentiment_cleaned_dict, default=str)
+    
+    #put in dynamo db
+    tweet_file_reader = ast.literal_eval(json_tweet_sentiment_cleaned_dict)
+    tweet_table = dynamodb_client.Table('Tweets')
+    for item in tweet_file_reader:
+        tweet_table.put_item(Item=item)
+    
     ## Put in S3
     PutTweetS3(client_s3,tweet_sentiment_cleaned_dict)
+    
+    
     
     
