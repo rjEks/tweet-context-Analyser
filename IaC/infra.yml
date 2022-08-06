@@ -86,7 +86,7 @@ Resources:
     Type: AWS::Events::Rule
     Properties: 
       Description: "twtter-event-analyser"
-      ScheduleExpression: "rate(10 minutes)"
+      ScheduleExpression: "rate(6 hours)"
       State: "ENABLED"
       Targets: 
         - 
