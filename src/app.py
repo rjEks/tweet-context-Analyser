@@ -53,8 +53,18 @@ def handler(event, context):
     for item in tweet_file_reader:
         tweet_table.put_item(Item=item)
     
-    ## Put in S3
-    PutTweetS3(client_s3,tweet_sentiment_cleaned_dict)
+    ## Put in S3 -TODO Refactor
+    tweet_dict_s3 = searchTwitter(client, start_time.isoformat(), \
+                               end_time.isoformat(), max_results, query)
+                               
+    tweet_sentiment_analysis_dict_s3 = detectSentiment(client_comprehend,
+                                                     tweet_dict_s3
+                                                    ,query)
+                                                    
+    tweet_sentiment_cleaned_dict_s3 = cleanTweet(
+                                                tweet_sentiment_analysis_dict_s3)
+     
+    PutTweetS3(client_s3,tweet_sentiment_cleaned_dict_s3)
     
     
     

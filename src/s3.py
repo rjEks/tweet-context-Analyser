@@ -16,7 +16,6 @@ def PutTweetS3(client, tweet_dict, bucket_name="twitter-context-analyser"):
     key = f"{year}/{month}/{day}/{hour}/"
     
     for tweets in tweet_dict:
-        print(tweets)
         id = str(uuid.uuid4().hex)
         client.put_object(Body=json.dumps(tweets, default=str), Bucket=bucket_name, Key=key+id+".json")
         
