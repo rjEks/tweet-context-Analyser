@@ -1,4 +1,3 @@
-import os
 from src.secrets_manager import get_secret
 from tweepy import *
 from src.tweet import set_credentials
