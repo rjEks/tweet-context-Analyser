@@ -3,7 +3,6 @@ from src.tweet import set_credentials, getClient, searchTwitter, cleanTweet
 from datetime import timedelta, datetime
 from src.comprehend import DetectSentiment
 import boto3
-from src.s3 import PutTweetS3
 import ast
 import json
 
@@ -54,16 +53,16 @@ def handler(event, context):
         tweet_table.put_item(Item=item)
 
     # Put in S3 -TODO Refactor
-    tweet_dict_s3 = searchTwitter(client, start_time.isoformat(),
-                                  end_time.isoformat(), max_results, query)
-
-    sentiment_analysis_dict_s3 = DetectSentiment(client_comprehend,
-                                                 tweet_dict_s3,
-                                                 query)
-
-    tweet_sentiment_cleaned_dict_s3 = cleanTweet(
-                                                sentiment_analysis_dict_s3)
-
-    PutTweetS3(client_s3, tweet_sentiment_cleaned_dict_s3)
-
+    # tweet_dict_s3 = searchTwitter(client, start_time.isoformat(),
+    #                               end_time.isoformat(), max_results, query)
+    #
+    # sentiment_analysis_dict_s3 = DetectSentiment(client_comprehend,
+    #                                              tweet_dict_s3,
+    #                                              query)
+    #
+    # tweet_sentiment_cleaned_dict_s3 = cleanTweet(
+    #                                             sentiment_analysis_dict_s3)
+    #
+    # PutTweetS3(client_s3, tweet_sentiment_cleaned_dict_s3)
+    #
     # Generate Wordcloud and save in S3 - TO DO Decouple Process
