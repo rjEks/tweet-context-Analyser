@@ -1,5 +1,5 @@
-import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
+
 
 def generate_wordcloud(tweets):
     tweets_text = " ".join(tweet for tweet in tweets)
@@ -13,3 +13,5 @@ def generate_wordcloud(tweets):
         collocations=False,
         stopwords=STOPWORDS,
         ).generate(tweets_text)
+
+    return word_cloud
