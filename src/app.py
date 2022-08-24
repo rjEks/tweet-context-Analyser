@@ -59,7 +59,7 @@ def handler(event, context):
 
     sentiment_analysis_dict_s3 = DetectSentiment(client_comprehend,
                                                  tweet_dict_s3,
-                                                 query)
+                                                    query)
 
     tweet_sentiment_cleaned_dict_s3 = cleanTweet(
                                                 sentiment_analysis_dict_s3)
