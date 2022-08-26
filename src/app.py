@@ -52,6 +52,8 @@ def handler(event, context):
     for item in tweet_file_reader:
         tweet_table.put_item(Item=item)
 
+    print("finalizado")
+
     # Put in S3 -TODO Refactor
     # tweet_dict_s3 = searchTwitter(client, start_time.isoformat(),
     #                               end_time.isoformat(), max_results, query)
