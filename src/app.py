@@ -30,7 +30,7 @@ def handler(event, context):
         timedelta_days_between
 
     max_results = 50
-    query = "bolsonaro -is:retweet lang:pt"
+    query = "lula -is:retweet lang:pt"
 
     # search twitter
     tweet_dict = searchTwitter(client, start_time.isoformat(),
